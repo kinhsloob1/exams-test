@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionsTable extends Migration
+class CreateQuestionCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,22 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::enableForeignKeyConstraints();
-        Schema::create('options', function (Blueprint $table) {
+        Schema::create('question_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('question_id');
-            $table->text('value');
-            $table->integer('score')->default(0);
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
             /**specify foreign keys */
             $table->foreign('question_id')
                 ->references('id')
                 ->on('questions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -37,6 +41,6 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('options');
+        Schema::dropIfExists('question_categories');
     }
 }

@@ -22,15 +22,11 @@ class CreateQuestionCategoriesTable extends Migration
             /**specify foreign keys */
             $table->foreign('question_id')
                 ->references('id')
-                ->on('questions')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->on('questions');
 
             $table->foreign('category_id')
                 ->references('id')
-                ->on('categories')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->on('categories');
         });
     }
 

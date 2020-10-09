@@ -2,15 +2,20 @@
 
 ## About Project
 
-Routes to the project
+This is a typical CRUD application for student examination questions.
 
--   Access /questions/create to create questions.
--   Access /questions to list questions.
--   Access /options/create to create options.
--   Acess /options to list options.
+-   Questions can be categorized.
+-   A question can have a maximum of 4 options
+-   An option has an optional score
+-   Categories, questions and options can be Created Read Updated and Deleted
+-   Enjoy
 
 ## Installation
 
 -   clone the repo
 -   run composer install
 -   run yarn install / npm install
+-   run npm run production / yarn production
+-   copy .env.example to .env and fill the database mysql configuration
+-   run php artisan key:generate to generate application key
+-   run php artisan serve to spawn a development server or configure apache or your webserver to send all non static requests to public/index.php and all static requests to its appropriate directory. for instance css static request can be found under public/css directory.

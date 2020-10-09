@@ -1,0 +1,133 @@
+.questions {
+    display: flex;
+    width: 1000px;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    margin-top: 80px;
+    flex-wrap: wrap;
+
+    .title {
+        font-weight: 800;
+        display: inline-flex;
+        font-size: 20px;
+    }
+
+    > .question {
+        display: flex;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        flex-wrap: nowrap;
+        align-items: stretch;
+
+        &:not(:last-child) {
+            border-bottom: initial;
+        }
+
+        > .value {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 0 50px;
+            flex-direction: column;
+        }
+
+        > .options {
+            display: inline-flex;
+            padding: 15px;
+            flex-direction: column;
+            justify-content: stretch;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            border-top: initial;
+            border-bottom: initial;
+
+            > .option {
+                display: flex;
+                flex-wrap: nowrap;
+
+                > .value {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-grow: 1;
+                    padding: 0 50px;
+                }
+
+                > .actions {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-grow: 0;
+                    padding: 10px 20px;
+                    flex-wrap: nowrap;
+
+                    > .action {
+                        border: initial;
+                        outline: initial;
+                        display: inline-flex;
+                        padding: 8px 15px;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 0;
+                        border-radius: 5px;
+                        cursor: pointer;
+
+                        &:not(:first-child) {
+                            margin-left: 10px;
+                        }
+
+                        &.edit {
+                            background-color: skyblue;
+                        }
+
+                        &.delete {
+                            background-color: red;
+                            color: white;
+                        }
+                    }
+                }
+
+                &:not(:first-child) {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        > .actions {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 0;
+            padding: 10px 20px;
+            flex-wrap: nowrap;
+
+            > .action {
+                border: initial;
+                outline: initial;
+                display: inline-flex;
+                padding: 8px 15px;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &:not(:first-child) {
+                    margin-left: 10px;
+                }
+
+                &.edit {
+                    background-color: skyblue;
+                }
+
+                &.delete {
+                    background-color: red;
+                    color: white;
+                }
+            }
+        }
+    }
+}

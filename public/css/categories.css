@@ -1,0 +1,64 @@
+.categories {
+  display: flex;
+  width: 600px;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  margin-top: 80px;
+}
+
+.categories > .category {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.categories > .category:not(:last-child) {
+  border-bottom: initial;
+}
+
+.categories > .category > .name {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 50px;
+}
+
+.categories > .category > .actions {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  padding: 10px 20px;
+  flex-wrap: nowrap;
+}
+
+.categories > .category > .actions > .action {
+  border: initial;
+  outline: initial;
+  display: inline-flex;
+  padding: 8px 15px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.categories > .category > .actions > .action:not(:first-child) {
+  margin-left: 10px;
+}
+
+.categories > .category > .actions > .action.edit {
+  background-color: skyblue;
+}
+
+.categories > .category > .actions > .action.delete {
+  background-color: red;
+  color: white;
+}
+

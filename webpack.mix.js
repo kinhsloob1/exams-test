@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+.sass('resources/sass/categories.scss', 'public/css')
+.sass('resources/sass/questions.scss', 'public/css')
+.sass('resources/sass/options.scss', 'public/css')
+.sass('resources/sass/form.scss', 'public/css');

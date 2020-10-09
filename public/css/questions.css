@@ -1,0 +1,134 @@
+.questions {
+  display: flex;
+  width: 1000px;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  margin-top: 80px;
+  flex-wrap: wrap;
+}
+
+.questions .title {
+  font-weight: 800;
+  display: inline-flex;
+  font-size: 20px;
+}
+
+.questions > .question {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.questions > .question:not(:last-child) {
+  border-bottom: initial;
+}
+
+.questions > .question > .value {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 50px;
+  flex-direction: column;
+}
+
+.questions > .question > .options {
+  display: inline-flex;
+  padding: 15px;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-top: initial;
+  border-bottom: initial;
+}
+
+.questions > .question > .options > .option {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.questions > .question > .options > .option > .value {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 50px;
+}
+
+.questions > .question > .options > .option > .actions {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  padding: 10px 20px;
+  flex-wrap: nowrap;
+}
+
+.questions > .question > .options > .option > .actions > .action {
+  border: initial;
+  outline: initial;
+  display: inline-flex;
+  padding: 8px 15px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.questions > .question > .options > .option > .actions > .action:not(:first-child) {
+  margin-left: 10px;
+}
+
+.questions > .question > .options > .option > .actions > .action.edit {
+  background-color: skyblue;
+}
+
+.questions > .question > .options > .option > .actions > .action.delete {
+  background-color: red;
+  color: white;
+}
+
+.questions > .question > .options > .option:not(:first-child) {
+  margin-top: 20px;
+}
+
+.questions > .question > .actions {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  padding: 10px 20px;
+  flex-wrap: nowrap;
+}
+
+.questions > .question > .actions > .action {
+  border: initial;
+  outline: initial;
+  display: inline-flex;
+  padding: 8px 15px;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.questions > .question > .actions > .action:not(:first-child) {
+  margin-left: 10px;
+}
+
+.questions > .question > .actions > .action.edit {
+  background-color: skyblue;
+}
+
+.questions > .question > .actions > .action.delete {
+  background-color: red;
+  color: white;
+}
+

@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\QuestionController;
+use App\Models\Category;
+use App\Models\Option;
+use App\Models\Question;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resources([
+    'questions' => QuestionController::class,
+]);
+
+Route::resource('questions.options', OptionController::class)->shallow();
+
+Route::resource('questions.categories', CategoryController::class)->shallow();

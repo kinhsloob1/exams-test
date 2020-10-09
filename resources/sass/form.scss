@@ -1,0 +1,65 @@
+.form {
+    display: flex;
+    width: 600px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    justify-content: flex-start;
+    align-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+
+    > .title {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 25px;
+        text-transform: capitalize;
+        margin-top: 30px;
+        font-weight: 800;
+    }
+
+    > .input {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        > * {
+            display: flex;
+            width: 100%;
+
+            &:not(:first-child) {
+                margin-top: 10px;
+            }
+        }
+
+        > label {
+            justify-content: flex-start;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        > input {
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            min-height: 40px;
+            outline: initial;
+            border-radius: 8px;
+        }
+    }
+
+    > .submit {
+        border: initial;
+        outline: initial;
+        display: inline-flex;
+        padding: 8px 15px;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: greenyellow;
+        margin-top: 40px;
+    }
+}

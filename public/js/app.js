@@ -31200,6 +31200,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/sass/index.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/index.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/options.scss":
 /*!*************************************!*\
   !*** ./resources/sass/options.scss ***!
@@ -31223,9 +31234,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/categories.scss ./resources/sass/questions.scss ./resources/sass/options.scss ./resources/sass/form.scss ***!
-  \*************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/categories.scss ./resources/sass/questions.scss ./resources/sass/options.scss ./resources/sass/form.scss ./resources/sass/index.scss ***!
+  \*****************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31233,7 +31244,8 @@ __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resour
 __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/categories.scss */"./resources/sass/categories.scss");
 __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/questions.scss */"./resources/sass/questions.scss");
 __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/options.scss */"./resources/sass/options.scss");
-module.exports = __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/form.scss */"./resources/sass/form.scss");
+__webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/form.scss */"./resources/sass/form.scss");
+module.exports = __webpack_require__(/*! /home/kingsloob1/Desktop/projects/test/exams-test/resources/sass/index.scss */"./resources/sass/index.scss");
 
 
 /***/ })

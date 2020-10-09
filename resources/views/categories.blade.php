@@ -17,7 +17,7 @@
     </span>
   </div>
   @empty
-  <span>No category is available</span>
+  <span>No category is available <a href="{{route('categories.create')}}">click here to create one at {{route('categories.create')}}</a></span>
   @endforelse
 </div>
 @endsection

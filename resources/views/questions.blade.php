@@ -39,7 +39,7 @@
     </div>
   </div>
   @empty
-  <span>No question is available</span>
+  <span>No question is available <a href="{{route('questions.create')}}">click here to create one at {{route('questions.create')}}</a></span>
   @endforelse
 </div>
 @endsection

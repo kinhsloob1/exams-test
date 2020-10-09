@@ -18,6 +18,13 @@
       align-items: center;
       align-content: center;
     }
+
+    .mt-flex {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-top: 30px;
+    }
   </style>
 
   @stack('styles')
@@ -25,6 +32,8 @@
 
 <body>
   @yield('content')
+
+  <a href="{{route('home')}}" class="mt-flex">Go Home</a>
   <script src="{{ mix('/js/app.js') }}"></script>
   @stack('scripts')
 </body>

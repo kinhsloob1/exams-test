@@ -8,3 +8,9 @@ Routes to the project
 -   [list questions](/questions).
 -   [create options](/options/create).
 -   [list options](/options).
+
+## Installation
+
+-   clone the repo
+-   run composer install
+-   run yarn install / npm install

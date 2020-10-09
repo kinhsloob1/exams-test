@@ -1,3 +1,15 @@
+.title {
+  font-weight: 800;
+  display: inline-flex;
+  font-size: 20px;
+}
+
+.title.root {
+  margin-top: 80px;
+  width: 100%;
+  justify-content: center;
+}
+
 .questions {
   display: flex;
   width: 1000px;
@@ -5,14 +17,8 @@
   justify-content: center;
   align-items: center;
   align-content: flex-start;
-  margin-top: 80px;
+  margin-top: 40px;
   flex-wrap: wrap;
-}
-
-.questions .title {
-  font-weight: 800;
-  display: inline-flex;
-  font-size: 20px;
 }
 
 .questions > .question {
@@ -27,6 +33,14 @@
   border-bottom: initial;
 }
 
+.questions > .question > .no {
+  padding: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .questions > .question > .value {
   display: inline-flex;
   justify-content: center;
@@ -36,12 +50,34 @@
   flex-direction: column;
 }
 
+.questions > .question > .categories {
+  display: inline-flex;
+  padding: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-top: initial;
+  border-bottom: initial;
+  border-left: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.questions > .question > .categories > .category {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.questions > .question > .categories > .category:not(:first-child) {
+  margin-top: 20px;
+}
+
 .questions > .question > .options {
   display: inline-flex;
   padding: 15px;
   flex-direction: column;
-  justify-content: stretch;
-  align-items: center;
+  justify-content: center;
+  align-items: stretch;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-top: initial;
   border-bottom: initial;

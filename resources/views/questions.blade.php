@@ -3,25 +3,28 @@
 @section('title', 'Questions')
 
 @section('content')
+<div class="title root">All Questions</div>
 <div class="questions">
   @forelse ($questions as $question)
-  <div class="question root" data-route="questions" data-id="{{$question->id}}">
+  <div class="question root" data-delete-url="{{route('questions.destroy', ['question' => $question->id])}}">
+    <div class="no">
+      {{$loop->index + 1}}
+    </div>
     <div class="value">
-
-      <span class="title">Question</span><br />
       {{$question->value}}
     </div>
     <div class="categories">
-
+      <span class="category">Categorized as:</span>
+      @foreach($question->categories as $category)
+      <span class="category">{{$category->name}}{{!$loop->last ? ',' : ''}}</span>
+      @endforeach
     </div>
     <div class="options">
-      <span class="title">Options</span>
-
       @forelse ($question->options as $option)
-      <div class="option root" data-route="options" data-id="{{$option->id}}">
+      <div class="option root" data-edit-url="{{route('options.edit', ['option' => $option->id])}}" data-delete-url="{{route('options.destroy', ['option' => $option->id])}}">
         <span class="value">{{$option->value}}</span>
         <span class="actions">
-          <button class="edit action">Edit</button>
+          <a class="edit action" href="{{route('options.edit', ['option' => $option->id])}}">Edit</a>
           <button class="delete action">Delete</button>
         </span>
       </div>
@@ -30,7 +33,8 @@
       @endforelse
     </div>
     <div class="actions">
-      <button class="edit action">Edit</button>
+      <a class="edit action" href="{{route('questions.edit', ['question' => $question->id])}}">Edit</a>
+      <a class="add-option action" href="{{route('questions.options.create', ['question' => $question->id])}}">Add option</a>
       <button class="delete action">Delete</button>
     </div>
   </div>

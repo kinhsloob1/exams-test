@@ -3,15 +3,17 @@
 @section('title', 'Options for Question {{$question->value}}')
 
 @section('content')
+<div class="title root">All Options for Question "{{$question->value}}"</div>
 <div class="options">
-  @forelse ($options as $option)
-  <div class="option root" data-route="options" data-id="{{$option->id}}">
+  @forelse ($question->options as $option)
+  <div class="option root" data-delete-url="{{route('options.destroy', ['option' => $option->id])}}">
+    <span class="no">{{$loop->index + 1}}</span>
     <span class="value">
       <span class="title">Options</span>
       {{$option->value}}
     </span>
     <span class="actions">
-      <button class="edit action">Edit</button>
+      <a class="edit action" href="{{route('options.edit', ['option' => $option->id])}}">Edit</a>
       <button class="delete action">Delete</button>
     </span>
   </div>

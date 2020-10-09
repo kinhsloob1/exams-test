@@ -3,12 +3,16 @@
 @section('title', 'Categories')
 
 @section('content')
+<div class="title root">All Categories</div>
 <div class="categories">
   @forelse ($categories as $category)
-  <div class="category" data-type="category" data-id="{{$category->id}}">
+  <div class="category root" data-delete-url="{{route('categories.destroy', ['category' => $category->id])}}">
+    <div class="no">
+      {{$loop->index + 1}}
+    </div>
     <span class="name">{{$category->name}}</span>
     <span class="actions">
-      <button class="edit action">Edit</button>
+      <a class="edit action" href="{{route('categories.edit', ['category' => $category->id])}}">Edit</a>
       <button class="delete action">Delete</button>
     </span>
   </div>

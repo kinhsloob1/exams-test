@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rule;
+
+use function PHPUnit\Framework\isEmpty;
 
 class QuestionController extends Controller
 {
@@ -18,7 +22,7 @@ class QuestionController extends Controller
     public function index()
     {
         return Response::view('questions', [
-            'questions' => Question::all()
+            'questions' => Question::query()->with(['options', 'categories'])->get()
         ]);
     }
 
@@ -30,7 +34,8 @@ class QuestionController extends Controller
     public function create()
     {
         return Response::view('question', [
-            'action' => 'create'
+            'action' => 'create',
+            'categories' => Category::query()->get()
         ]);
     }
 
@@ -47,12 +52,29 @@ class QuestionController extends Controller
                 'required',
                 'string',
                 'min:3'
+            ],
+            'categories' => [
+                'required',
+                'array',
+                function ($attribute, $value, $fail) {
+                    if (isEmpty($value)) return $fail('Ooops... at lease a category should be selected');
+
+                    foreach ($value as $category) {
+                        if (!Category::find($category)) return $fail('Ooops... invalid category selected');
+                    }
+                },
             ]
         ]);
 
-        $data = $request->only(['value']);
+        $data = $request->only(['value', 'categories']);
+        $categories = Arr::pull($data, 'categories', null);
         $question = new Question($data);
+
         if ($question->save()) {
+            if (is_array($categories)) {
+                $question->categories()->sync($categories);
+            }
+
             return Response::json([
                 'status' => 'ok',
                 'data' => [
@@ -91,7 +113,8 @@ class QuestionController extends Controller
     {
         return Response::view('question', [
             'question' => $question,
-            'action' => 'edit'
+            'action' => 'edit',
+            'categories' => Category::query()->get()
         ]);
     }
 
@@ -106,14 +129,30 @@ class QuestionController extends Controller
     {
         $request->validate([
             'value' => [
-                'required',
                 'string',
                 'min:3'
+            ],
+            'categories' => [
+                'array',
+                function ($attribute, $value, $fail) {
+                    return Response::json($value, 400);
+                    if (isEmpty($value)) return $fail('Ooops... at lease a category should be selected');
+
+                    foreach ($value as $category) {
+                        if (!Category::find($category)) return $fail('Ooops... invalid category selected');
+                    }
+                },
             ]
         ]);
 
-        $data = $request->only(['value']);
-        $question->value = Arr::get($data, 'value');
+        $data = $request->only(['value', 'categories']);
+        foreach ($data as $key => $value) {
+            if ($key === 'categories') {
+                if (is_array($value)) $question->categories()->sync($value);
+                continue;
+            }
+            if (isset($question->{$key})) $question->{$key} = $value;
+        }
 
         if ($question->save()) {
             return Response::json([
@@ -136,12 +175,18 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        if ($question->delete()) {
+        // Disable foreign key checks!
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        if ($question->delete() && $question->options()->delete()) {
             return Response::json([
                 'status' => 'ok',
                 'message' => 'question destroyed succesfully'
             ]);
         }
+
+        // Enable foreign key checks!
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return Response::json([
             'status' => 'error',

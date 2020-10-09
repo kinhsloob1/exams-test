@@ -29,4 +29,4 @@ Route::resources([
 
 Route::resource('questions.options', OptionController::class)->shallow();
 
-Route::resource('questions.categories', CategoryController::class)->shallow();
+Route::resource('categories', CategoryController::class);

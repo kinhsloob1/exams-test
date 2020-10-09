@@ -28,10 +28,11 @@ class OptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Question $question)
     {
         return Response::view('option', [
-            'action' => 'create'
+            'action' => 'create',
+            'question' => $question,
         ]);
     }
 
@@ -41,23 +42,28 @@ class OptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Question $question)
     {
+        $question->loadMissing(['options']);
+        if ($question->options->count() === 4) return Response::json([
+            'status' => 'error',
+            'message' => 'Ooopss... a question can have a maximum of four options'
+        ], 400);
+
         $request->validate([
             'value' => [
                 'required',
                 'string',
                 'min:3'
             ],
-            'question_id' => [
-                'required',
-                Rule::exists(Question::class, 'id')
+            'score' => [
+                'numeric',
             ]
         ]);
 
-        $data = $request->only(['value']);
+        $data = $request->only(['value', 'score']);
         $option = new Option($data);
-        $isSaved = Question::find(Arr::get($data, 'question_id'))->save($option);
+        $isSaved = $question->options()->save($option);
         if ($isSaved) {
             return Response::json([
                 'status' => 'ok',
@@ -112,14 +118,18 @@ class OptionController extends Controller
     {
         $request->validate([
             'value' => [
-                'required',
                 'string',
                 'min:3'
+            ],
+            'score' => [
+                'numeric',
             ]
         ]);
 
-        $data = $request->only(['value']);
-        $option->value = Arr::get($data, 'value');
+        $data = $request->only(['value', 'score']);
+        foreach ($data as $key => $value) {
+            if (isset($option->{$key})) $option->{$key} = $value;
+        }
 
         if ($option->save()) {
             return Response::json([

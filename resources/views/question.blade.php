@@ -4,11 +4,20 @@
 
 @section('content')
 @if($action === 'create' || $action === 'edit')
-<form class="form" data-route="questions" data-action="{{$action}}" data-id="{{$action === 'edit' ? $question->id : 0}}">
+<form class="form" data-action="{{$action}}" @if($action==='edit' ) data-save-url="{{route('questions.update', ['question' => $question->id])}}" data-save-method="patch" @else data-save-url="{{route('questions.store')}}" data-save-method="post" @endif>
   <h3 class="title">{{$action === 'create' ? 'New' : 'Update'}} Question Form</h3>
   <div class="input">
     <label>Please input question</label>
     <input type="text" name="value" value="{{$action === 'edit' ? $question->value : ''}}">
+  </div>
+  <div class="input">
+    <label>Please select categories</label>
+    <select name="categories[]" multiple>
+      @foreach($categories as $category)
+      <option value="{{$category->id}}" @if($action==='edit' && $question->categories->contains($category->id)) selected @endif>{{$category->name}}</option>
+      @endforeach
+      <option value="" @if(($action==='edit' && $question->categories->isEmpty()) || $action === 'create') selected @endif disabled>none</option>
+    </select>
   </div>
   <button class="submit">save</button>
 </form>

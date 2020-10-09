@@ -1,42 +1,34 @@
 require('./bootstrap');
 const $ = window.$ = require('jquery');
 
-$('.delete, .edit').on('click', async function(e) {
+$('.delete').on('click', async function(e) {
   e.preventDefault();
   e.stopImmediatePropagation();
 
   const self = $(this);
   const closestRoot = self.closest('.root');
-  const id = closestRoot.data('id');
 
-  let url = '/' + closestRoot.data('route') + `/${id}`;
+  try{
+    const {data, status} = await window.axios({
+      method: 'delete',
+      url: closestRoot.data('deleteUrl'),
+      responseType: 'json',
+      validateStatus: function (status) {
+        return status < 500;//status >= 200 && status < 300; // default
+      },
+    });
 
-  if(self.hasClass('delete')){
-    try{
-      const {data, status} = await window.axios({
-        method: 'delete',
-        url,
-        responseType: 'json',
-        validateStatus: function (status) {
-          return status < 500;//status >= 200 && status < 300; // default
-        },
-      });
+    if(status === 200){
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2000);
 
-      if(status === 200){
-        setTimeout(() => {
-          window.location.reload(true);
-        }, 2000);
-
-        return alert(data.message);
-      }
-
-      alert(data.message || 'An error occurred');
-    }catch(e){
-      alert('a server error occurred');
+      return alert(data.message);
     }
-  }else{
-    url = `${url}/edit`;
-    window.location.href = url;
+
+    alert(data.message || 'An error occurred');
+  }catch(e){
+    throw e;
   }
 });
 
@@ -49,17 +41,10 @@ $('.submit').on('click', async function(e){
   const action = form.data('action');
   const id = form.data('id');
 
-  let url = form.data('route');
-  let method = 'post';
+  const url = form.data('saveUrl');
+  const method = form.data('saveMethod');
+  const lodash = window._;
 
-  switch(action){
-    case 'edit':
-      url = `${url}/${id}`
-      method= 'patch';
-      break;
-  }
-
-  url = `/${url}`;
   try{
     const {data, status} = await window.axios({
       method,
@@ -71,12 +56,28 @@ $('.submit').on('click', async function(e){
       },
     });
 
+    console.log(status, data);
     if(status === 200){
       setTimeout(() => {
         window.history.back();
       }, 2000);
 
       return alert('data saved succesfully');
+    }
+
+    if(status === 422){
+      let error = `
+      ${data.message}\r\n
+      `;
+
+      const errors = data.errors;
+      if(lodash.isObject(errors)){
+        lodash.each(errors, (value, key) => {
+          error += `${key}  ---  ${value}\r\n`
+        });
+      }
+
+      return alert(error);
     }
 
     alert(data.message || 'An error occurred');

@@ -30999,9 +30999,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var $ = window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-$('.delete, .edit').on('click', /*#__PURE__*/function () {
+$('.delete').on('click', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
-    var self, closestRoot, id, url, _yield$window$axios, data, status;
+    var self, closestRoot, _yield$window$axios, data, status;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
@@ -31011,32 +31011,24 @@ $('.delete, .edit').on('click', /*#__PURE__*/function () {
             e.stopImmediatePropagation();
             self = $(this);
             closestRoot = self.closest('.root');
-            id = closestRoot.data('id');
-            url = '/' + closestRoot.data('route') + "/".concat(id);
-
-            if (!self.hasClass('delete')) {
-              _context.next = 24;
-              break;
-            }
-
-            _context.prev = 7;
-            _context.next = 10;
+            _context.prev = 4;
+            _context.next = 7;
             return window.axios({
               method: 'delete',
-              url: url,
+              url: closestRoot.data('deleteUrl'),
               responseType: 'json',
               validateStatus: function validateStatus(status) {
                 return status < 500; //status >= 200 && status < 300; // default
               }
             });
 
-          case 10:
+          case 7:
             _yield$window$axios = _context.sent;
             data = _yield$window$axios.data;
             status = _yield$window$axios.status;
 
             if (!(status === 200)) {
-              _context.next = 16;
+              _context.next = 13;
               break;
             }
 
@@ -31045,30 +31037,22 @@ $('.delete, .edit').on('click', /*#__PURE__*/function () {
             }, 2000);
             return _context.abrupt("return", alert(data.message));
 
-          case 16:
+          case 13:
             alert(data.message || 'An error occurred');
-            _context.next = 22;
+            _context.next = 19;
             break;
+
+          case 16:
+            _context.prev = 16;
+            _context.t0 = _context["catch"](4);
+            throw _context.t0;
 
           case 19:
-            _context.prev = 19;
-            _context.t0 = _context["catch"](7);
-            alert('a server error occurred');
-
-          case 22:
-            _context.next = 26;
-            break;
-
-          case 24:
-            url = "".concat(url, "/edit");
-            window.location.href = url;
-
-          case 26:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, this, [[7, 19]]);
+    }, _callee, this, [[4, 16]]);
   }));
 
   return function (_x) {
@@ -31077,7 +31061,7 @@ $('.delete, .edit').on('click', /*#__PURE__*/function () {
 }());
 $('.submit').on('click', /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-    var form, formData, action, id, url, method, _yield$window$axios2, data, status;
+    var form, formData, action, id, url, method, lodash, _yield$window$axios2, data, status, error, errors;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
@@ -31089,21 +31073,11 @@ $('.submit').on('click', /*#__PURE__*/function () {
             formData = form.serialize();
             action = form.data('action');
             id = form.data('id');
-            url = form.data('route');
-            method = 'post';
-            _context2.t0 = action;
-            _context2.next = _context2.t0 === 'edit' ? 11 : 14;
-            break;
-
-          case 11:
-            url = "".concat(url, "/").concat(id);
-            method = 'patch';
-            return _context2.abrupt("break", 14);
-
-          case 14:
-            url = "/".concat(url);
-            _context2.prev = 15;
-            _context2.next = 18;
+            url = form.data('saveUrl');
+            method = form.data('saveMethod');
+            lodash = window._;
+            _context2.prev = 9;
+            _context2.next = 12;
             return window.axios({
               method: method,
               url: url,
@@ -31114,13 +31088,14 @@ $('.submit').on('click', /*#__PURE__*/function () {
               }
             });
 
-          case 18:
+          case 12:
             _yield$window$axios2 = _context2.sent;
             data = _yield$window$axios2.data;
             status = _yield$window$axios2.status;
+            console.log(status, data);
 
             if (!(status === 200)) {
-              _context2.next = 24;
+              _context2.next = 19;
               break;
             }
 
@@ -31129,6 +31104,23 @@ $('.submit').on('click', /*#__PURE__*/function () {
             }, 2000);
             return _context2.abrupt("return", alert('data saved succesfully'));
 
+          case 19:
+            if (!(status === 422)) {
+              _context2.next = 24;
+              break;
+            }
+
+            error = "\n      ".concat(data.message, "\r\n\n      ");
+            errors = data.errors;
+
+            if (lodash.isObject(errors)) {
+              lodash.each(errors, function (value, key) {
+                error += "".concat(key, "  ---  ").concat(value, "\r\n");
+              });
+            }
+
+            return _context2.abrupt("return", alert(error));
+
           case 24:
             alert(data.message || 'An error occurred');
             _context2.next = 30;
@@ -31136,7 +31128,7 @@ $('.submit').on('click', /*#__PURE__*/function () {
 
           case 27:
             _context2.prev = 27;
-            _context2.t1 = _context2["catch"](15);
+            _context2.t0 = _context2["catch"](9);
             alert('a server error occurred');
 
           case 30:
@@ -31144,7 +31136,7 @@ $('.submit').on('click', /*#__PURE__*/function () {
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[15, 27]]);
+    }, _callee2, this, [[9, 27]]);
   }));
 
   return function (_x2) {

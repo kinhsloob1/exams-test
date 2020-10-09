@@ -20,6 +20,17 @@
         font-weight: 800;
     }
 
+    > .question {
+        display: flex;
+        width: 100%;
+        margin: 20px 0 40px;
+        justify-content: flex-start;
+        align-items: center;
+        text-transform: capitalize;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
     > .input {
         display: flex;
         width: 100%;

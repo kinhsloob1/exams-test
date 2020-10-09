@@ -4,10 +4,10 @@
 
 Routes to the project
 
--   [create questions](/questions/create).
--   [list questions](/questions).
--   [create options](/options/create).
--   [list options](/options).
+-   Access /questions/create to create questions.
+-   Access /questions to list questions.
+-   Access /options/create to create options.
+-   Acess /options to list options.
 
 ## Installation
 

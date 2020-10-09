@@ -18,4 +18,5 @@ This is a typical CRUD application for student examination questions.
 -   run npm run production / yarn production
 -   copy .env.example to .env and fill the database mysql configuration
 -   run php artisan key:generate to generate application key
+-   run php artisan migrate:force to migrate database tables
 -   run php artisan serve to spawn a development server or configure apache or your webserver to send all non static requests to public/index.php and all static requests to its appropriate directory. for instance css static request can be found under public/css directory.
